@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtStep;
     TextView txtWeather;
+
+    ImageView imgPlayer;
 
     MainValues mv;
 
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         txtStep = (TextView) findViewById(R.id.txt_Step);
         txtWeather = (TextView) findViewById(R.id.txt_Weather);
+
+        imgPlayer = (ImageView) findViewById(R.id.img_Player);
 
         intentManbo = new Intent(this, ManboService.class);
         receiver = new PlayingReceiver();
@@ -45,7 +51,13 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Log.i("PlayignReceiver", "IN");
             serviceData = intent.getStringExtra("stepService");
-            txtStep.setText(serviceData);
+
+            if (serviceData.equals("0"))
+                imgPlayer.setImageResource(R.drawable.player_0);
+            else if (serviceData.equals("1"))
+                imgPlayer.setImageResource(R.drawable.player_1);
+            else if (serviceData.equals("2"))
+                imgPlayer.setImageResource(R.drawable.player_2);
 
             GetXMLTask task = new GetXMLTask();
             task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=61&gridy=125");

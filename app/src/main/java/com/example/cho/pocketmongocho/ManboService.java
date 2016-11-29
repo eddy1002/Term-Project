@@ -18,7 +18,7 @@ public class ManboService extends Service implements SensorEventListener{
     private float lastZ;
 
     private float x, y, z;
-    private static final int SHAKE_THRESHOLD = 500;
+    private static final int SHAKE_THRESHOLD = 250;
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -80,11 +80,37 @@ public class ManboService extends Service implements SensorEventListener{
 
                     count++;
                     mv.setStep(count);
+                    mv.setSpeed(7);
 
-                    String msg = mv.getStep() / 2 + "";
+                    if (mv.getWalk() == 0){
+                        mv.setWalk(1);
+                    }
+                    else if (mv.getWalk() == 1){
+                        mv.setWalk(2);
+                    }
+                    else if (mv.getWalk() == 2){
+                        mv.setWalk(1);
+                    }
+
+                    String msg = mv.getWalk() + "";
                     myFilteredResponse.putExtra("stepService", msg);
 
                     sendBroadcast(myFilteredResponse);
+                }
+                else{
+                    if (mv.getSpeed() > 0){
+                        mv.subSpeed();
+                    }
+                    else {
+                        Intent myFilteredResponse = new Intent("make.a.yong.manbo");
+
+                        mv.setWalk(0);
+
+                        String msg = mv.getWalk() + "";
+                        myFilteredResponse.putExtra("stepService", msg);
+
+                        sendBroadcast(myFilteredResponse);
+                    }
                 }
 
                 lastX = event.values[0];
