@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class ManboService extends Service implements SensorEventListener{
-    int count = 0;
     private long lastTime;
     private float speed;
     private float lastX;
@@ -33,7 +32,6 @@ public class ManboService extends Service implements SensorEventListener{
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mv = MainValues.getInstance();
-        count = mv.getStep();
     }
 
     @Override
@@ -74,12 +72,11 @@ public class ManboService extends Service implements SensorEventListener{
 
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
 
-                if (speed > SHAKE_THRESHOLD) {
+                if (speed > SHAKE_THRESHOLD && !mv.getInBattle()) {
                     Log.i("onSensorChanged_IF", "SECOND_IF_IN");
                     Intent myFilteredResponse = new Intent("make.a.yong.manbo");
 
-                    count++;
-                    mv.setStep(count);
+                    mv.setStep(mv.getStep() - 1);
                     mv.setSpeed(7);
 
                     if (mv.getWalk() == 0){

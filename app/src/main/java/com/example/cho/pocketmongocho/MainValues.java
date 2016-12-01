@@ -5,12 +5,14 @@ public class MainValues {
     private int walk = 0;
     private int speed = 0;
     private String weather = "";
+    private boolean inBattle = false;
 
     private static MainValues instance;
 
     private MainValues(){
-        step = 0;
+        step = 10;
         weather = "";
+        inBattle = false;
     }
 
     public static MainValues getInstance(){
@@ -36,6 +38,8 @@ public class MainValues {
         return weather;
     }
 
+    public boolean getInBattle() { return inBattle; }
+
     public void setStep(int inStep){
         step = inStep;
     }
@@ -55,4 +59,6 @@ public class MainValues {
     public void setWeather(String inWeather){
         weather = inWeather;
     }
+
+    public void setInBattle(boolean boolInBattle){ inBattle = boolInBattle; }
 }

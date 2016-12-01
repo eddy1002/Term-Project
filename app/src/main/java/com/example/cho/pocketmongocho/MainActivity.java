@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgPlayer;
 
     MainValues mv;
+    Intent battleIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(receiver, mainFilter);
 
         startService(intentManbo);
+
+        battleIntent = new Intent(MainActivity.this, BattleActivity.class);
     }
 
     class PlayingReceiver extends BroadcastReceiver {
@@ -62,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
             GetXMLTask task = new GetXMLTask();
             task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=61&gridy=125");
             txtWeather.setText(mv.getWeather());
+            txtStep.setText(mv.getStep() + "");
+
+            if (mv.getStep() <= 0){
+                int randomStep = (int) Math.round(Math.random() * 10) + 10;
+                mv.setStep(randomStep);
+                mv.setInBattle(true);
+
+                startActivity(battleIntent);
+            }
         }
     }
 }
