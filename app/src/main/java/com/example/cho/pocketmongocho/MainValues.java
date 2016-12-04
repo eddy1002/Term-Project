@@ -6,6 +6,7 @@ public class MainValues {
     private int speed = 0;
     private String weather = "";
     private boolean inBattle = false;
+    private int catchMob[];
 
     private static MainValues instance;
 
@@ -13,6 +14,7 @@ public class MainValues {
         step = 10;
         weather = "";
         inBattle = false;
+        catchMob = new int[4];
     }
 
     public static MainValues getInstance(){
@@ -61,4 +63,11 @@ public class MainValues {
     }
 
     public void setInBattle(boolean boolInBattle){ inBattle = boolInBattle; }
+
+    public int getCatchMob(int index){
+        return catchMob[index];
+    }
+    public void setCatchMob(int index){
+        catchMob[index] = 1;
+    }
 }

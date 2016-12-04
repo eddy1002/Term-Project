@@ -40,4 +40,17 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/img_Player" />
 
+    <Button
+        android:text="ViewCatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/img_Player"
+        android:layout_toEndOf="@+id/img_Player"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="21dp"
+        android:id="@+id/button_Catch"
+        android:onClick="viewCatch" />
+
 </RelativeLayout>

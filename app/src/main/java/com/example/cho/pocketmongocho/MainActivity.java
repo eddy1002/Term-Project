@@ -8,6 +8,7 @@ import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         startService(intentManbo);
 
         battleIntent = new Intent(MainActivity.this, BattleActivity.class);
+    }
+
+    public void viewCatch(View v){
+        Intent catchIntent = new Intent(MainActivity.this, CatchActivity.class);
+        startActivity(catchIntent);
     }
 
     class PlayingReceiver extends BroadcastReceiver {

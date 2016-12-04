@@ -26,7 +26,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".BattleActivity"></activity>
+        <activity android:name=".BattleActivity" />
+        <activity android:name=".CatchActivity" />
+        <activity android:name=".List_Catch"></activity>
     </application>
 
 </manifest>
