@@ -31,6 +31,8 @@ public class BattleActivity extends AppCompatActivity {
 
     int randomMob;
 
+    private GPSInfo gps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,18 @@ public class BattleActivity extends AppCompatActivity {
                     imgPocketMon.setVisibility(View.INVISIBLE);
 
                     mv.setCatchMob(randomMob);
+
+                    gps = new GPSInfo(BattleActivity.this);
+
+                    if (gps.isGetLocation()){
+                        float catchX = (float) gps.getLatitude();
+                        float catchY = (float) gps.getLongitude();
+
+                        mv.setCatchLocation(randomMob, catchX, catchY);
+                    }
+                    else{
+                        gps.showSettingsAlert();
+                    }
                 }
                 else{
                     buttonResult.setVisibility(View.VISIBLE);

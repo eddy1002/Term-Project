@@ -7,6 +7,8 @@ public class MainValues {
     private String weather = "";
     private boolean inBattle = false;
     private int catchMob[];
+    private float catchLocationX[];
+    private float catchLocationY[];
 
     private static MainValues instance;
 
@@ -15,6 +17,8 @@ public class MainValues {
         weather = "";
         inBattle = false;
         catchMob = new int[4];
+        catchLocationX = new float[4];
+        catchLocationY = new float[4];
     }
 
     public static MainValues getInstance(){
@@ -69,5 +73,16 @@ public class MainValues {
     }
     public void setCatchMob(int index){
         catchMob[index] = 1;
+    }
+
+    public void setCatchLocation(int index, float x, float y){
+        catchLocationX[index] = x;
+        catchLocationY[index] = y;
+    }
+    public float getCacthLocationX(int index){
+        return catchLocationX[index];
+    }
+    public float getCacthLocationY(int index){
+        return catchLocationY[index];
     }
 }

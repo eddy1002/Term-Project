@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -51,7 +54,8 @@ public class CatchActivity extends AppCompatActivity {
                 v = vi.inflate(R.layout.activity_list__catch, null);
             }
 
-            ImageView imageView = (ImageView)v.findViewById(R.id.image_Pocket);
+            ImageView imageView = (ImageView) v.findViewById(R.id.image_Pocket);
+            TextView textView = (TextView) v.findViewById(R.id.text_CatchLocation);
 
             if(mv.getCatchMob(items.get(position)) == 1){
                 switch (items.get(position)){
@@ -68,6 +72,7 @@ public class CatchActivity extends AppCompatActivity {
                         imageView.setImageResource(R.drawable.mob_3);
                         break;
                 }
+                textView.setText("(" + String.format("%.2f", mv.getCacthLocationX(items.get(position))) + ", " + String.format("%.2f", mv.getCacthLocationY(items.get(position))) + ")");
             }
 
             return v;
