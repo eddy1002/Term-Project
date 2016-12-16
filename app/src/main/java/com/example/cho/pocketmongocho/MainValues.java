@@ -16,9 +16,9 @@ public class MainValues {
         step = 10;
         weather = "";
         inBattle = false;
-        catchMob = new int[4];
-        catchLocationX = new float[4];
-        catchLocationY = new float[4];
+        catchMob = new int[9];
+        catchLocationX = new float[9];
+        catchLocationY = new float[9];
     }
 
     public static MainValues getInstance(){

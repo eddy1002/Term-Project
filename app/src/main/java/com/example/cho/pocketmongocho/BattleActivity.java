@@ -18,6 +18,7 @@ import java.lang.ref.WeakReference;
 
 public class BattleActivity extends AppCompatActivity {
     MainValues mv;
+    DBManager dbManager;
 
     int animateNum = 0;
     ImageView imgPocketMon;
@@ -31,6 +32,10 @@ public class BattleActivity extends AppCompatActivity {
 
     int randomMob;
 
+    int[] mobWhenSunny = {3, 4, 5};
+    int[] mobWhenRainy = {6, 7, 8};
+    int[] mobWhenNormal = {0, 1, 2};
+
     private GPSInfo gps;
 
     @Override
@@ -39,6 +44,7 @@ public class BattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
 
         mv = MainValues.getInstance();
+        dbManager = new DBManager(getApplicationContext(), "Pocket.db", null, 1);
         animateNum = 0;
 
         imgPocketMon = (ImageView) findViewById(R.id.image_PocketMon);
@@ -46,7 +52,17 @@ public class BattleActivity extends AppCompatActivity {
         buttonResult = (Button) findViewById(R.id.button_Result);
         buttonDraw = (Button) findViewById(R.id.button);
 
-        randomMob = (int) Math.round(Math.random() * 3);
+        int randomIndex = (int) Math.round(Math.random() * 2);
+        if (mv.getWeather().contains("맑음")){
+            randomMob = mobWhenSunny[randomIndex];
+        }
+        else if (mv.getWeather().contains("비")){
+            randomMob = mobWhenRainy[randomIndex];
+        }
+        else{
+            randomMob = mobWhenNormal[randomIndex];
+        }
+
 
         switch(randomMob){
             case 0:
@@ -60,6 +76,21 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case 3:
                 imgPocketMon.setImageResource(R.drawable.mob_3);
+                break;
+            case 4:
+                imgPocketMon.setImageResource(R.drawable.mob_4);
+                break;
+            case 5:
+                imgPocketMon.setImageResource(R.drawable.mob_5);
+                break;
+            case 6:
+                imgPocketMon.setImageResource(R.drawable.mob_6);
+                break;
+            case 7:
+                imgPocketMon.setImageResource(R.drawable.mob_7);
+                break;
+            case 8:
+                imgPocketMon.setImageResource(R.drawable.mob_8);
                 break;
         }
     }
@@ -106,7 +137,7 @@ public class BattleActivity extends AppCompatActivity {
             default:
                 animateNum = 0;
                 int randNum = (int) Math.round(Math.random() * 100);
-                if (randNum > 50){
+                if (randNum > 30){
                     buttonResult.setVisibility(View.VISIBLE);
                     buttonResult.setText("Catch!");
 
@@ -122,6 +153,7 @@ public class BattleActivity extends AppCompatActivity {
                         float catchY = (float) gps.getLongitude();
 
                         mv.setCatchLocation(randomMob, catchX, catchY);
+                        dbManager.setDB(randomMob, catchX, catchY);
                     }
                     else{
                         gps.showSettingsAlert();
